@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars: Politics, Power, and Lineage in Star Wars</title>
+    <style>
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            background-color: #0a0f1f; /* Dark space blue */
+            color: #c0c0c0; /* Light silver/grey for text */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif; /* Futuristic font, needs import or fallback */
+            color: #4db8ff; /* Holocron Blue */
+            margin-bottom: 0.75em;
+            line-height: 1.2;
+            text-shadow: 0 0 5px rgba(77, 184, 255, 0.5);
+        }
+
+        h1 { font-size: 2.8em; text-align: center; margin-top: 1em; margin-bottom: 1em; }
+        h2 { font-size: 2.2em; border-bottom: 2px solid #2a3f78; padding-bottom: 0.3em; margin-top: 2em; }
+        h3 { font-size: 1.8em; color: #ff6b6b; /* Sith Red for specific highlights */ margin-top: 1.5em; }
+        h4 { font-size: 1.4em; color: #ffd700; /* Jedi Gold for specific highlights */ }
+
+        p {
+            margin-bottom: 1.2em;
+            font-size: 1.05em;
+        }
+
+        a {
+            color: #4db8ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #82cfff;
+        }
+
+        strong { color: #e0e0e0; } /* Slightly brighter for emphasis */
+        
+        ul, ol {
+            margin-bottom: 1em;
+            padding-left: 20px;
+        }
+        li { margin-bottom: 0.5em; }
+
+        /* Layout & Containers */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .act-section {
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            background-color: rgba(15, 22, 46, 0.7); /* Slightly lighter dark blue for sections */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(77, 184, 255, 0.1);
+            border: 1px solid #1c2a53;
+        }
+
+        /* Navigation Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px; /* Hidden by default */
+            width: 250px;
+            height: 100vh;
+            background-color: #050814;
+            padding: 20px;
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+            overflow-y: auto;
+            border-right: 2px solid #4db8ff;
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #4db8ff;
+            color: #050814;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 0 10px rgba(77, 184, 255, 0.7);
+        }
+        .sidebar-toggle:hover {
+            background-color: #82cfff;
+        }
+        .sidebar h3 {
+            color: #ffd700;
+            margin-top: 0;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li a {
+            display: block;
+            padding: 8px 0;
+            color: #c0c0c0;
+            font-size: 0.95em;
+        }
+        .sidebar ul li a:hover {
+            color: #4db8ff;
+            text-decoration: none;
+            transform: translateX(5px);
+            transition: transform 0.2s;
+        }
+
+        /* SVG Diagrams Styling */
+        .svg-diagram {
+            display: block;
+            margin: 25px auto;
+            max-width: 100%;
+            height: auto;
+            background-color: rgba(10, 15, 31, 0.5);
+            border: 1px solid #2a3f78;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .svg-diagram text {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            fill: #c0c0c0;
+            font-size: 12px;
+        }
+        .svg-diagram .node-rect {
+            fill: #1a294a;
+            stroke: #4db8ff;
+            stroke-width: 1px;
+        }
+        .svg-diagram .node-text {
+            fill: #e0e0e0;
+            font-size: 11px;
+            text-anchor: middle;
+        }
+        .svg-diagram .line-connector {
+            stroke: #4db8ff;
+            stroke-width: 1.5px;
+        }
+        .svg-diagram .arrow-head {
+            fill: #4db8ff;
+        }
+        .svg-diagram .diagram-title-svg {
+            font-size: 16px;
+            fill: #ffd700;
+            text-anchor: middle;
+            font-weight: bold;
+        }
+         .svg-diagram .sith-text { fill: #ff6b6b; }
+         .svg-diagram .jedi-text { fill: #82cfff; }
+
+
+        /* Archival Analysis (formerly Galactic Insights) */
+        .archival-analysis {
+            background-color: rgba(77, 184, 255, 0.05);
+            border-left: 5px solid #4db8ff;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .archival-analysis h5 {
+            color: #4db8ff;
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            font-size: 1.2em;
+        }
+        .archival-analysis p {
+            font-size: 0.95em;
+            margin-bottom: 0.5em;
+        }
+        .archival-analysis strong {
+            color: #82cfff;
+        }
+
+        /* Character Profile Pop-up */
+        .character-link {
+            cursor: pointer;
+            color: #ffd700; /* Gold for character names */
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .character-link:hover {
+            color: #fffacd;
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #0a0f1f;
+            margin: 10% auto;
+            padding: 30px;
+            border: 2px solid #4db8ff;
+            width: 70%;
+            max-width: 700px;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(77, 184, 255, 0.5);
+            position: relative;
+        }
+        .modal-content h4 { margin-top: 0; }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+            .container { width: 95%; }
+            .sidebar-toggle { font-size: 1em; padding: 8px 12px; }
+            .modal-content { width: 90%; margin: 20% auto; }
+            .svg-diagram text { font-size: 10px; }
+            .svg-diagram .node-text { font-size: 9px; }
+        }
+
+        /* Import Orbitron font */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+    </style>
+</head>
+<body>
+
+    <button class="sidebar-toggle" id="sidebarToggle">☰ Menu</button>
+    <nav class="sidebar" id="sidebar">
+        <h3>Galactic Archives</h3>
+        <ul>
+            <li><a href="#overture">Overture: Seeds of Deception</a></li>
+            <li><a href="#act1">Act I: The Phantom Menace</a></li>
+            <li><a href="#act2">Act II: Attack of the Clones</a></li>
+            <li><a href="#act3">Act III: Revenge of the Sith</a></li>
+            <li><a href="#interlude">Interlude: The Dark Times</a></li>
+            <li><a href="#act4">Act IV: A New Hope</a></li>
+            <li><a href="#act5">Act V: The Empire Strikes Back</a></li>
+            <li><a href="#act6">Act VI: Return of the Jedi</a></li>
+            <li><a href="#epilogue">Epilogue: The Force Endures</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>The Galactic Tapestry</h1>
+            <p style="text-align:center; font-size: 1.2em; color: #82cfff;">Politics, Power, and Lineage in Star Wars – A Deep Dive</p>
+        </header>
+
+        <main>
+            <section id="overture" class="act-section">
+                <h2>Overture: The Seeds of Deception (Pre-Episode I)</h2>
+                <p>Before the galaxy was plunged into the chaos of the Clone Wars, before the shadow of the Empire fell, the Old Republic, for all its millennia of existence, was beginning to fray. It was a time of outward peace, but beneath the surface, complacency and corruption were taking root. The Jedi Order, guardians of peace and justice, served faithfully, yet perhaps their vision had become too insular, their connection to the ordinary beings of the galaxy strained by tradition and dogma.</p>
+                
+                <h3>The Sith Legacy: The Rule of Two</h3>
+                <p>For a thousand years, the Sith, ancient enemies of the Jedi, were thought extinct. But they endured, hidden in the shadows, adhering to Darth Bane's "Rule of Two": one Master to embody power, one Apprentice to crave it. This doctrine ensured secrecy, discipline, and the methodical accumulation of influence, waiting for the opportune moment to strike.</p>
+
+                <div class="archival-analysis">
+                    <h5>Archival Analysis: The Long Game</h5>
+                    <p>The patience of the Sith is something I always wanted to emphasize. It's not just about lightsaber duels; it's about a millennium of planning. The Rule of Two wasn't just a limitation; it was a crucible, forging each successive Sith Lord into a more potent instrument of the Dark Side's will. This long view is essential to understanding Palpatine – he wasn't an anomaly; he was an inevitability of this doctrine.</p>
+                </div>
+
+                <h3>Sheev Palpatine's Genesis & The Grand Plan</h3>
+                <p>From the seemingly innocuous world of Naboo arose <span class="character-link" data-character="palpatine">Sheev Palpatine</span>. Possessed of a prodigious intellect and an innate connection to the Dark Side, he became the apprentice of <span class="character-link" data-character="plagueis">Darth Plagueis the Wise</span>, a Muun Sith Lord obsessed with manipulating midi-chlorians to conquer death itself. Palpatine absorbed Plagueis's teachings, not just on the Force, but on galactic finance, politics, and the art of deception. While Plagueis sought eternal life, Palpatine refined a more audacious vision: the utter subjugation of the galaxy, with himself as its absolute master. He learned well, and in true Sith fashion, eventually surpassed his master, taking the title of Dark Lord for himself.</p>
+                
+                <svg class="svg-diagram" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                    <text x="200" y="25" class="diagram-title-svg">Sith Lineage & The Grand Plan</text>
+                    <rect x="150" y="50" width="100" height="30" rx="5" class="node-rect"/>
+                    <text x="200" y="70" class="node-text sith-text">Darth Bane</text>
+                    <text x="200" y="85" class="node-text" style="font-size:9px;">(Rule of Two)</text>
+                    
+                    <line x1="200" y1="80" x2="200" y2="100" class="line-connector"/>
+                    <polygon points="197,97 203,97 200,103" class="arrow-head"/>
+                    
+                    <text x="200" y="115" class="node-text" style="font-size:10px; fill: #a0a0a0;">...Hidden Lineage...</text>
+                    
+                    <line x1="200" y1="125" x2="200" y2="145" class="line-connector"/>
+                    <polygon points="197,142 203,142 200,148" class="arrow-head"/>
+
+                    <rect x="50" y="150" width="120" height="30" rx="5" class="node-rect"/>
+                    <text x="110" y="170" class="node-text sith-text">Darth Plagueis</text>
+                    
+                    <line x1="170" y1="165" x2="230" y2="165" class="line-connector"/>
+                     <text x="200" y="160" class="node-text" style="font-size:9px;">Master of</text>
+                    
+                    <rect x="230" y="150" width="120" height="30" rx="5" class="node-rect"/>
+                    <text x="290" y="170" class="node-text sith-text">Darth Sidious</text>
+                    <text x="290" y="183" class="node-text" style="font-size:9px;">(Palpatine)</text>
+
+                    <line x1="200" y1="180" x2="200" y2="200" class="line-connector" style="stroke-dasharray: 3 3;"/>
+                    <polygon points="197,197 203,197 200,203" class="arrow-head"/>
+                    <text x="200" y="215" class="node-text" style="font-size:10px; fill: #ffd700;">Vision: Galactic Empire</text>
+                </svg>
+            </section>
+
+            <section id="act1" class="act-section">
+                <h2>Act I: The Phantom Menace – Engineering a Crisis</h2>
+                <p>The Republic, under the well-meaning but increasingly ineffective Chancellor <span class="character-link" data-character="valorum">Finis Valorum</span>, was mired in bureaucracy. Senator Palpatine of Naboo, a seemingly humble public servant, saw his opening. The greedy Trade Federation, chafing under Republic taxation, became his unwitting pawns.</p>
+                
+                <h3>Palpatine's Machinations: The Naboo Blockade</h3>
+                <p>Palpatine, as Darth Sidious, secretly encouraged the Trade Federation to blockade his own home world of Naboo. This manufactured crisis served multiple purposes: it exposed the Republic's impotence, created a wave of sympathy for Naboo (and by extension, its Senator), and provided the pretext for Palpatine's own political ascension.</p>
+                <p>He masterfully advised the young Queen <span class="character-link" data-character="padme">Padmé Amidala</span> to call for a Vote of No Confidence in Chancellor Valorum. With Valorum ousted, Palpatine, riding a wave of carefully cultivated sympathy and behind-the-scenes maneuvering, was elected Supreme Chancellor.</p>
+
+                <svg class="svg-diagram" viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
+                    <text x="150" y="20" class="diagram-title-svg">Palpatine's Rise to Chancellor</text>
+                    <g transform="translate(0, 30)">
+                        <rect x="75" y="10" width="150" height="35" rx="3" class="node-rect"/>
+                        <text x="150" y="30" class="node-text">Sidious Incites Blockade</text>
+                        <text x="150" y="43" class="node-text" style="font-size:9px;">(Trade Federation)</text>
+                        
+                        <line x1="150" y1="45" x2="150" y2="65" class="line-connector"/>
+                        <polygon points="147,62 153,62 150,68" class="arrow-head"/>
+                        
+                        <rect x="75" y="70" width="150" height="35" rx="3" class="node-rect"/>
+                        <text x="150" y="90" class="node-text">Naboo Crisis</text>
+                        <text x="150" y="103" class="node-text" style="font-size:9px;">(Valorum's Weakness)</text>
+
+                        <line x1="150" y1="105" x2="150" y2="125" class="line-connector"/>
+                        <polygon points="147,122 153,122 150,128" class="arrow-head"/>
+
+                        <rect x="75" y="130" width="150" height="35" rx="3" class="node-rect"/>
+                        <text x="150" y="150" class="node-text">Palpatine Advises Padmé</text>
+                        <text x="150" y="163" class="node-text" style="font-size:9px;">(Vote of No Confidence)</text>
+                        
+                        <line x1="150" y1="165" x2="150" y2="185" class="line-connector"/>
+                        <polygon points="147,182 153,182 150,188" class="arrow-head"/>
+
+                        <rect x="75" y="190" width="150" height="30" rx="3" class="node-rect"/>
+                        <text x="150" y="210" class="node-text">Valorum Ousted</text>
+                        
+                        <line x1="150" y1="220" x2="150" y2="240" class="line-connector"/>
+                        <polygon points="147,237 153,237 150,243" class="arrow-head"/>
+
+                        <rect x="50" y="245" width="200" height="30" rx="3" class="node-rect" style="fill:#3c5a8a;"/>
+                        <text x="150" y="265" class="node-text" style="fill:#ffd700; font-weight:bold;">Palpatine Elected Chancellor</text>
+                    </g>
+                </svg>
+
+                <h3>The Chosen One: Anakin Skywalker</h3>
+                <p>Amidst this turmoil, Jedi Master <span class="character-link" data-character="qui-gon">Qui-Gon Jinn</span> discovered a young slave boy on Tatooine, <span class="character-link" data-character="anakin">Anakin Skywalker</span>, whose midi-chlorian count was off the charts. Palpatine, with his keen Force sensitivity, immediately recognized the boy's immense potential. "We will watch your career with great interest," he told Anakin, a seemingly benign statement laden with sinister foresight. The seeds of Anakin's future grooming were planted.</p>
+
+                <div class="archival-analysis">
+                    <h5>Archival Analysis: The Prophecy and Palpatine</h5>
+                    <p>The Prophecy of the Chosen One – who would bring balance to the Force – was a cornerstone of Jedi belief. Palpatine, aware of this, saw Anakin not just as a powerful tool, but as a potential perversion of that prophecy. If he could turn the Chosen One, he could shatter the Jedi's hope and their very understanding of the Force. This was a long-term strategic goal from the moment he learned of Anakin.</p>
+                </div>
+            </section>
+
+            <section id="act2" class="act-section">
+                <h2>Act II: Attack of the Clones – Forging an Army, Fueling a War</h2>
+                <p>A decade later, the Republic was fracturing. A Separatist movement, the Confederacy of Independent Systems (CIS), led by the charismatic former Jedi Master <span class="character-link" data-character="dooku">Count Dooku</span> (now Palpatine's Sith apprentice, Darth Tyranus), threatened to tear the galaxy apart. This was, of course, all part of Palpatine's intricate design.</p>
+
+                <h3>Palpatine's Dual Game: Republic Leader, Separatist Instigator</h3>
+                <p>As Chancellor, Palpatine decried the Separatist threat. As Darth Sidious, he orchestrated it through Dooku. Assassination attempts on Senator Padmé Amidala, a leading voice against militarization, ironically became the catalyst for the Senate to grant Palpatine emergency powers and approve the creation of a Grand Army of the Republic.</p>
+                
+                <h3>The Clone Army: A Masterstroke of Deception</h3>
+                <p>Unbeknownst to the Jedi and most of the Senate, this army had been secretly commissioned years prior. Jedi Master Sifo-Dyas, foreseeing conflict, had ordered its creation from the Kaminoans. However, Dooku and Sidious quickly co-opted the project, ensuring the clone template was the formidable bounty hunter <span class="character-link" data-character="jango">Jango Fett</span>, and, crucially, that each clone 
