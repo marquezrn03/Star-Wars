@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Wars: Politics, Power, and Lineage in Star Wars</title>
+    <title>The Galactic Tapestry: Politics, Power, and Lineage in Star Wars</title>
     <style>
         /* Reset and Base Styles */
         *, *::before, *::after {
@@ -172,7 +172,7 @@
          .svg-diagram .jedi-text { fill: #82cfff; }
 
 
-        /* Archival Analysis (formerly Galactic Insights) */
+        /* Archival Analysis */
         .archival-analysis {
             background-color: rgba(77, 184, 255, 0.05);
             border-left: 5px solid #4db8ff;
@@ -194,7 +194,7 @@
             color: #82cfff;
         }
 
-        /* Character Profile Pop-up */
+        /* Character Profile Pop-up & Gemini Modal */
         .character-link {
             cursor: pointer;
             color: #ffd700; /* Gold for character names */
@@ -205,7 +205,7 @@
             color: #fffacd;
         }
         .modal {
-            display: none; /* Hidden by default */
+            display: none; 
             position: fixed;
             z-index: 2000;
             left: 0;
@@ -214,10 +214,12 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0,0,0,0.7);
+            align-items: center; /* For centering modal content */
+            justify-content: center; /* For centering modal content */
         }
         .modal-content {
             background-color: #0a0f1f;
-            margin: 10% auto;
+            /* margin: 10% auto; No longer needed with flex centering */
             padding: 30px;
             border: 2px solid #4db8ff;
             width: 70%;
@@ -225,8 +227,11 @@
             border-radius: 10px;
             box-shadow: 0 0 25px rgba(77, 184, 255, 0.5);
             position: relative;
+            max-height: 80vh; /* Max height for scrollability */
+            overflow-y: auto; /* Enable scroll for content */
         }
-        .modal-content h4 { margin-top: 0; }
+        .modal-content h4 { margin-top: 0; color: #ffd700;}
+        .modal-content h5 { color: #4db8ff; margin-top: 1em; }
         .close-button {
             color: #aaa;
             position: absolute;
@@ -241,6 +246,45 @@
             text-decoration: none;
             cursor: pointer;
         }
+        
+        /* Gemini API Feature Button */
+        .gemini-button {
+            background-color: #b300ff; /* Purple for Gemini features */
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: inline-block;
+            text-shadow: 0 0 3px #000;
+            box-shadow: 0 2px 5px rgba(179, 0, 255, 0.5);
+        }
+        .gemini-button:hover {
+            background-color: #cc33ff;
+            box-shadow: 0 2px 8px rgba(179, 0, 255, 0.7);
+        }
+        .gemini-button .sparkle {
+            margin-right: 5px;
+        }
+
+        /* Loading Spinner for Modals */
+        .loader {
+            border: 5px solid #1c2a53; /* Light grey */
+            border-top: 5px solid #4db8ff; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -249,7 +293,7 @@
             h3 { font-size: 1.5em; }
             .container { width: 95%; }
             .sidebar-toggle { font-size: 1em; padding: 8px 12px; }
-            .modal-content { width: 90%; margin: 20% auto; }
+            .modal-content { width: 90%; /* margin: 20% auto; No longer needed */ }
             .svg-diagram text { font-size: 10px; }
             .svg-diagram .node-text { font-size: 9px; }
         }
@@ -289,6 +333,7 @@
                 
                 <h3>The Sith Legacy: The Rule of Two</h3>
                 <p>For a thousand years, the Sith, ancient enemies of the Jedi, were thought extinct. But they endured, hidden in the shadows, adhering to Darth Bane's "Rule of Two": one Master to embody power, one Apprentice to crave it. This doctrine ensured secrecy, discipline, and the methodical accumulation of influence, waiting for the opportune moment to strike.</p>
+                <button class="gemini-button" data-gemini-type="what-if" data-context="What if the Rule of Two was never established by Darth Bane?"><span class="sparkle">✨</span> Explore "What If?" Scenario</button>
 
                 <div class="archival-analysis">
                     <h5>Archival Analysis: The Long Game</h5>
@@ -297,31 +342,25 @@
 
                 <h3>Sheev Palpatine's Genesis & The Grand Plan</h3>
                 <p>From the seemingly innocuous world of Naboo arose <span class="character-link" data-character="palpatine">Sheev Palpatine</span>. Possessed of a prodigious intellect and an innate connection to the Dark Side, he became the apprentice of <span class="character-link" data-character="plagueis">Darth Plagueis the Wise</span>, a Muun Sith Lord obsessed with manipulating midi-chlorians to conquer death itself. Palpatine absorbed Plagueis's teachings, not just on the Force, but on galactic finance, politics, and the art of deception. While Plagueis sought eternal life, Palpatine refined a more audacious vision: the utter subjugation of the galaxy, with himself as its absolute master. He learned well, and in true Sith fashion, eventually surpassed his master, taking the title of Dark Lord for himself.</p>
+                <button class="gemini-button" data-gemini-type="analyze-strategy" data-context="Analyze the strategic implications of Palpatine betraying Darth Plagueis."><span class="sparkle">✨</span> Analyze This Strategy</button>
                 
                 <svg class="svg-diagram" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
                     <text x="200" y="25" class="diagram-title-svg">Sith Lineage & The Grand Plan</text>
                     <rect x="150" y="50" width="100" height="30" rx="5" class="node-rect"/>
                     <text x="200" y="70" class="node-text sith-text">Darth Bane</text>
                     <text x="200" y="85" class="node-text" style="font-size:9px;">(Rule of Two)</text>
-                    
                     <line x1="200" y1="80" x2="200" y2="100" class="line-connector"/>
                     <polygon points="197,97 203,97 200,103" class="arrow-head"/>
-                    
                     <text x="200" y="115" class="node-text" style="font-size:10px; fill: #a0a0a0;">...Hidden Lineage...</text>
-                    
                     <line x1="200" y1="125" x2="200" y2="145" class="line-connector"/>
                     <polygon points="197,142 203,142 200,148" class="arrow-head"/>
-
                     <rect x="50" y="150" width="120" height="30" rx="5" class="node-rect"/>
                     <text x="110" y="170" class="node-text sith-text">Darth Plagueis</text>
-                    
                     <line x1="170" y1="165" x2="230" y2="165" class="line-connector"/>
                      <text x="200" y="160" class="node-text" style="font-size:9px;">Master of</text>
-                    
                     <rect x="230" y="150" width="120" height="30" rx="5" class="node-rect"/>
                     <text x="290" y="170" class="node-text sith-text">Darth Sidious</text>
                     <text x="290" y="183" class="node-text" style="font-size:9px;">(Palpatine)</text>
-
                     <line x1="200" y1="180" x2="200" y2="200" class="line-connector" style="stroke-dasharray: 3 3;"/>
                     <polygon points="197,197 203,197 200,203" class="arrow-head"/>
                     <text x="200" y="215" class="node-text" style="font-size:10px; fill: #ffd700;">Vision: Galactic Empire</text>
@@ -334,6 +373,7 @@
                 
                 <h3>Palpatine's Machinations: The Naboo Blockade</h3>
                 <p>Palpatine, as Darth Sidious, secretly encouraged the Trade Federation to blockade his own home world of Naboo. This manufactured crisis served multiple purposes: it exposed the Republic's impotence, created a wave of sympathy for Naboo (and by extension, its Senator), and provided the pretext for Palpatine's own political ascension.</p>
+                <button class="gemini-button" data-gemini-type="analyze-strategy" data-context="Analyze the political genius of Palpatine manufacturing the Naboo crisis to become Chancellor."><span class="sparkle">✨</span> Analyze This Strategy</button>
                 <p>He masterfully advised the young Queen <span class="character-link" data-character="padme">Padmé Amidala</span> to call for a Vote of No Confidence in Chancellor Valorum. With Valorum ousted, Palpatine, riding a wave of carefully cultivated sympathy and behind-the-scenes maneuvering, was elected Supreme Chancellor.</p>
 
                 <svg class="svg-diagram" viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
@@ -342,30 +382,22 @@
                         <rect x="75" y="10" width="150" height="35" rx="3" class="node-rect"/>
                         <text x="150" y="30" class="node-text">Sidious Incites Blockade</text>
                         <text x="150" y="43" class="node-text" style="font-size:9px;">(Trade Federation)</text>
-                        
                         <line x1="150" y1="45" x2="150" y2="65" class="line-connector"/>
                         <polygon points="147,62 153,62 150,68" class="arrow-head"/>
-                        
                         <rect x="75" y="70" width="150" height="35" rx="3" class="node-rect"/>
                         <text x="150" y="90" class="node-text">Naboo Crisis</text>
                         <text x="150" y="103" class="node-text" style="font-size:9px;">(Valorum's Weakness)</text>
-
                         <line x1="150" y1="105" x2="150" y2="125" class="line-connector"/>
                         <polygon points="147,122 153,122 150,128" class="arrow-head"/>
-
                         <rect x="75" y="130" width="150" height="35" rx="3" class="node-rect"/>
                         <text x="150" y="150" class="node-text">Palpatine Advises Padmé</text>
                         <text x="150" y="163" class="node-text" style="font-size:9px;">(Vote of No Confidence)</text>
-                        
                         <line x1="150" y1="165" x2="150" y2="185" class="line-connector"/>
                         <polygon points="147,182 153,182 150,188" class="arrow-head"/>
-
                         <rect x="75" y="190" width="150" height="30" rx="3" class="node-rect"/>
                         <text x="150" y="210" class="node-text">Valorum Ousted</text>
-                        
                         <line x1="150" y1="220" x2="150" y2="240" class="line-connector"/>
                         <polygon points="147,237 153,237 150,243" class="arrow-head"/>
-
                         <rect x="50" y="245" width="200" height="30" rx="3" class="node-rect" style="fill:#3c5a8a;"/>
                         <text x="150" y="265" class="node-text" style="fill:#ffd700; font-weight:bold;">Palpatine Elected Chancellor</text>
                     </g>
@@ -373,6 +405,7 @@
 
                 <h3>The Chosen One: Anakin Skywalker</h3>
                 <p>Amidst this turmoil, Jedi Master <span class="character-link" data-character="qui-gon">Qui-Gon Jinn</span> discovered a young slave boy on Tatooine, <span class="character-link" data-character="anakin">Anakin Skywalker</span>, whose midi-chlorian count was off the charts. Palpatine, with his keen Force sensitivity, immediately recognized the boy's immense potential. "We will watch your career with great interest," he told Anakin, a seemingly benign statement laden with sinister foresight. The seeds of Anakin's future grooming were planted.</p>
+                <button class="gemini-button" data-gemini-type="what-if" data-context="What if Qui-Gon Jinn had survived his duel with Darth Maul and trained Anakin Skywalker?"><span class="sparkle">✨</span> Explore "What If?" Scenario</button>
 
                 <div class="archival-analysis">
                     <h5>Archival Analysis: The Prophecy and Palpatine</h5>
@@ -386,6 +419,466 @@
 
                 <h3>Palpatine's Dual Game: Republic Leader, Separatist Instigator</h3>
                 <p>As Chancellor, Palpatine decried the Separatist threat. As Darth Sidious, he orchestrated it through Dooku. Assassination attempts on Senator Padmé Amidala, a leading voice against militarization, ironically became the catalyst for the Senate to grant Palpatine emergency powers and approve the creation of a Grand Army of the Republic.</p>
+                <button class="gemini-button" data-gemini-type="analyze-strategy" data-context="Analyze the effectiveness and risks of Palpatine's strategy of playing both sides (Republic and Separatists) during the Clone Wars."><span class="sparkle">✨</span> Analyze This Strategy</button>
                 
                 <h3>The Clone Army: A Masterstroke of Deception</h3>
-                <p>Unbeknownst to the Jedi and most of the Senate, this army had been secretly commissioned years prior. Jedi Master Sifo-Dyas, foreseeing conflict, had ordered its creation from the Kaminoans. However, Dooku and Sidious quickly co-opted the project, ensuring the clone template was the formidable bounty hunter <span class="character-link" data-character="jango">Jango Fett</span>, and, crucially, that each clone 
+                <p>Unbeknownst to the Jedi and most of the Senate, this army had been secretly commissioned years prior. Jedi Master Sifo-Dyas, foreseeing conflict, had ordered its creation from the Kaminoans. However, Dooku and Sidious quickly co-opted the project, ensuring the clone template was the formidable bounty hunter <span class="character-link" data-character="jango">Jango Fett</span>, and, crucially, that each clone was implanted with a bio-chip containing inhibitor protocols – including Order 66, the command to eliminate the Jedi.</p>
+                <button class="gemini-button" data-gemini-type="what-if" data-context="What if the Jedi Council had discovered the true nature of the clone army and Order 66 before it was executed?"><span class="sparkle">✨</span> Explore "What If?" Scenario</button>
+
+                <svg class="svg-diagram" viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg">
+                    <text x="225" y="25" class="diagram-title-svg">The Clone Conspiracy & Dooku's Deception</text>
+                    <rect x="175" y="40" width="100" height="30" rx="5" class="node-rect"/>
+                    <text x="225" y="60" class="node-text sith-text">Palpatine</text>
+                    <text x="225" y="73" class="node-text sith-text" style="font-size:9px;">(Darth Sidious)</text>
+                    <line x1="175" y1="55" x2="100" y2="100" class="line-connector"/>
+                    <polygon points="103,97 97,97 100,103" class="arrow-head" transform="rotate(210 100 100)"/>
+                     <text x="130" y="80" class="node-text" style="font-size:9px;">Directs</text>
+                    <rect x="50" y="100" width="100" height="30" rx="5" class="node-rect"/>
+                    <text x="100" y="120" class="node-text sith-text">Count Dooku</text>
+                     <text x="100" y="133" class="node-text sith-text" style="font-size:9px;">(D. Tyranus)</text>
+                    <line x1="100" y1="130" x2="100" y2="150" class="line-connector"/>
+                     <text x="115" y="145" class="node-text" style="font-size:9px;">Leads</text>
+                    <polygon points="97,147 103,147 100,153" class="arrow-head"/>
+                    <rect x="50" y="155" width="100" height="30" rx="5" class="node-rect"/>
+                    <text x="100" y="175" class="node-text">Separatists (CIS)</text>
+                    <line x1="275" y1="55" x2="350" y2="100" class="line-connector"/>
+                    <polygon points="347,97 353,97 350,103" class="arrow-head" transform="rotate(-210 350 100)"/>
+                     <text x="300" y="80" class="node-text" style="font-size:9px;">Manipulates Order of</text>
+                    <rect x="300" y="100" width="100" height="30" rx="5" class="node-rect"/>
+                    <text x="350" y="120" class="node-text jedi-text">Sifo-Dyas</text>
+                     <text x="350" y="133" class="node-text jedi-text" style="font-size:9px;">(Initial Clone Order)</text>
+                    <line x1="350" y1="130" x2="350" y2="150" class="line-connector"/>
+                    <polygon points="347,147 353,147 350,153" class="arrow-head"/>
+                    <rect x="250" y="155" width="100" height="30" rx="5" class="node-rect"/>
+                    <text x="300" y="175" class="node-text">Kaminoans</text>
+                    <line x1="350" y1="170" x2="300" y2="170" class="line-connector" style="stroke-dasharray: 2 2;"/>
+                    <line x1="300" y1="185" x2="300" y2="205" class="line-connector"/>
+                    <polygon points="297,202 303,202 300,208" class="arrow-head"/>
+                    <rect x="200" y="210" width="200" height="45" rx="5" class="node-rect" style="fill:#3c5a8a;"/>
+                    <text x="300" y="230" class="node-text" style="fill:#ffd700;">Clone Army</text>
+                    <text x="300" y="245" class="node-text" style="font-size:9px; fill:#ff6b6b;">(Jango Fett Template, Inhibitor Chips, Order 66)</text>
+                    <path d="M 100 185 Q 100 230, 200 230" stroke="#ff6b6b" stroke-dasharray="3 3" fill="none" class="line-connector"/>
+                    <path d="M 225 70 Q 225 150, 300 210" stroke="#4db8ff" stroke-dasharray="3 3" fill="none" class="line-connector"/>
+                    <text x="225" y="275" class="node-text" style="font-size:10px; fill: #ffd700;">Palpatine's Goal: Galactic War & Jedi Destruction</text>
+                </svg>
+                
+                <h3>Anakin and Padmé: A Forbidden Love</h3>
+                <p>During this period, Anakin Skywalker, now a skilled but impetuous Jedi Knight, and Padmé Amidala, fell deeply in love and married in secret. Palpatine, ever watchful, knew of this attachment. It was a potent vulnerability he would later exploit with devastating precision.</p>
+            </section>
+
+            <section id="act3" class="act-section">
+                <h2>Act III: Revenge of the Sith – The Empire Ascendant</h2>
+                <p>The Clone Wars raged across the galaxy, pushing the Republic and the Jedi Order to their limits. This was the culmination of Palpatine's decades of planning – the final act in his transformation of the galaxy.</p>
+
+                <h3>The Seduction of Anakin Skywalker</h3>
+                <p>Palpatine, in a carefully orchestrated series of manipulations, preyed on Anakin's fear of losing Padmé, whom Anakin had foreseen dying in childbirth. He revealed himself as Darth Sidious, promising Anakin the Dark Side power to save her. He stoked Anakin's resentment towards the Jedi Council, who denied him the rank of Master and distrusted the Chancellor. Torn and desperate, Anakin Skywalker fell, pledging himself to Palpatine and becoming Darth Vader.</p>
+                <button class="gemini-button" data-gemini-type="analyze-strategy" data-context="Analyze the psychological tactics Palpatine used to seduce Anakin Skywalker to the Dark Side."><span class="sparkle">✨</span> Analyze This Strategy</button>
+
+                <div class="archival-analysis">
+                    <h5>Archival Analysis: Anakin's Tragedy</h5>
+                    <p>Anakin's fall wasn't just about power; it was about fear, love, and a desperate desire for control over life and death – a desire Palpatine expertly twisted. He didn't just offer power; he offered a perverted form of salvation. The tragedy is that Anakin's actions to prevent Padmé's death directly caused it. This ironic, tragic structure was always central to his character arc and Palpatine's manipulation.</p>
+                </div>
+
+                <article id="anakins-fall" class="act-section" style="background-color: rgba(40,10,10,0.7); border-color: #ff6b6b;">
+                    <h4>Anakin's Dark Descent: An Abyss of Despair</h4>
+                    <p>Anakin Skywalker's transformation into Darth Vader was not a sudden event, but a tragic downward spiral fueled by fear, anger, and Palpatine's cunning manipulation.</p>
+                    <p><strong>Prelude to Darkness – The Tusken Massacre:</strong> Years earlier, the brutal death of his mother, Shmi Skywalker, at the hands of Tusken Raiders, unleashed a genocidal rage in Anakin. He annihilated an entire tribe – men, women, and children. This act, confessed tearfully to Padmé, was a terrifying premonition of his capacity for darkness and a deep wound in his psyche. Palpatine undoubtedly noted this vulnerability.</p>
+                    <p><strong>Palpatine's Vise:</strong> The Chancellor positioned himself as a father figure and confidant to Anakin, exploiting his frustration with the Jedi Council's restrictions and perceived lack of trust. Anakin's nightmares of Padmé dying in childbirth became Palpatine's primary leverage. He whispered of the Dark Side's power, of the legend of Darth Plagueis the Wise, who could supposedly prevent loved ones from dying.</p>
+                    <p><strong>The Point of No Return – Betrayal in the Chancellor's Office:</strong> When Mace Windu and other Jedi Masters attempted to arrest Palpatine after he revealed himself as a Sith Lord, Anakin faced an impossible choice. In a moment of panic and desperation, believing Palpatine was the only one who could save Padmé, he betrayed Windu, allowing Palpatine to kill him. "Power! Unlimited power!" Palpatine exclaimed. In that instant, Anakin knelt and submitted to the Dark Side, receiving the name Darth Vader.</p>
+                    <button class="gemini-button" data-gemini-type="what-if" data-context="What if Anakin Skywalker had sided with Mace Windu against Palpatine in the Chancellor's office?"><span class="sparkle">✨</span> Explore "What If?" Scenario</button>
+                    <p><strong>The Jedi Temple Massacre:</strong> Vader's first order as a Sith was to march on the Jedi Temple and annihilate everyone inside, including the younglings. This horrific act was a full immersion into darkness, a brutal attempt to sever all ties with his Jedi past and prove his loyalty to his new master.</p>
+                    <p><strong>Confrontation on Mustafar:</strong> Sent to Mustafar to eliminate the Separatist leaders and end the war, Vader confronted Obi-Wan Kenobi. Consumed by rage and paranoia, believing Padmé and Obi-Wan had betrayed him, he fought his former master in a cataclysmic duel. Defeated and horribly mutilated, left for dead on a fiery bank, he was rescued by Palpatine and encased in the black armor that would become the symbol of his new identity and Imperial terror. The news of Padmé's death (which Palpatine delivered as if Anakin had killed her in his anger) sealed his transformation, leaving only Darth Vader.</p>
+                </article>
+
+                <h3>Order 66: The Great Jedi Purge</h3>
+                <p>With Anakin as his enforcer, Palpatine issued Order 66. Across the galaxy, clone troopers turned on their Jedi generals, slaughtering them without question or hesitation. The Jedi Order, for millennia the guardians of peace, was decimated in a matter of hours. Darth Vader himself led the assault on the Jedi Temple on Coruscant.</p>
+
+                <h3>The First Galactic Empire</h3>
+                <p>Before a terrified and war-weary Senate, Palpatine declared the Jedi traitors and announced the reorganization of the Republic into the first Galactic Empire, with himself as Emperor. "So this is how liberty dies," Padmé lamented, "with thunderous applause." To tie up loose ends, Vader was dispatched to Mustafar to eliminate the Separatist leaders, ending the war Palpatine himself had engineered.</p>
+                
+                <svg class="svg-diagram" viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+                    <text x="200" y="25" class="diagram-title-svg">Fall of the Republic / Rise of the Empire</text>
+                    <rect x="20" y="50" width="160" height="180" rx="5" class="node-rect" style="fill:rgba(77, 184, 255, 0.2); stroke: #4db8ff;"/>
+                    <text x="100" y="70" class="node-text jedi-text" style="font-weight:bold;">Galactic Republic</text>
+                    <text x="100" y="100" class="node-text">Anakin becomes Vader</text>
+                    <line x1="100" y1="105" x2="100" y2="120" class="line-connector"/>
+                    <polygon points="97,117 103,117 100,123" class="arrow-head"/>
+                    <text x="100" y="135" class="node-text sith-text">Order 66 (Jedi Purge)</text>
+                    <line x1="100" y1="140" x2="100" y2="155" class="line-connector"/>
+                    <polygon points="97,152 103,152 100,158" class="arrow-head"/>
+                    <text x="100" y="170" class="node-text">Senate Manipulation</text>
+                    <text x="100" y="200" class="node-text jedi-text" style="font-size:20px; opacity:0.5;">†</text>
+                    <line x1="180" y1="140" x2="220" y2="140" class="line-connector" style="stroke-width:3px;"/>
+                    <polygon points="215,135 215,145 223,140" class="arrow-head" style="fill:#ffd700;"/>
+                    <rect x="220" y="50" width="160" height="180" rx="5" class="node-rect" style="fill:rgba(255, 107, 107, 0.2); stroke: #ff6b6b;"/>
+                    <text x="300" y="70" class="node-text sith-text" style="font-weight:bold;">Galactic Empire</text>
+                    <text x="300" y="100" class="node-text">Palpatine Declares Himself Emperor</text>
+                    <line x1="300" y1="105" x2="300" y2="120" class="line-connector"/>
+                    <polygon points="297,117 303,117 300,123" class="arrow-head"/>
+                    <text x="300" y="135" class="node-text">Vader as Enforcer</text>
+                     <line x1="300" y1="140" x2="300" y2="155" class="line-connector"/>
+                    <polygon points="297,152 303,152 300,158" class="arrow-head"/>
+                    <text x="300" y="170" class="node-text">End of Clone Wars</text>
+                    <text x="300" y="200" class="node-text sith-text" style="font-size:24px; font-weight:bold;">EMPIRE</text>
+                    <text x="200" y="255" class="node-text" style="font-style:italic; fill:#a0a0a0;">"So this is how liberty dies... with thunderous applause."</text>
+                </svg>
+
+                <h3>The Skywalker Twins</h3>
+                <p>Padmé Amidala, having lost the will to live after Anakin's turn, died shortly after giving birth to twins: <span class="character-link" data-character="luke">Luke</span> and <span class="character-link" data-character="leia">Leia</span>. To protect them from the Emperor and their father, the infants were separated and hidden – Luke on Tatooine with Owen and Beru Lars, Leia adopted by Senator Bail Organa and Queen Breha of Alderaan.</p>
+            </section>
+
+            <section id="interlude" class="act-section">
+                <h2>Interlude: The Dark Times – The Emperor's Iron Grip</h2>
+                <p>For nearly two decades, Emperor Palpatine ruled the galaxy with an iron fist. The Galactic Empire brought order, but it was the order of tyranny, maintained through fear and overwhelming military might. The Imperial Security Bureau (ISB) and stormtroopers suppressed any dissent. The ultimate symbol of this power was the Death Star, a battle station capable of destroying entire planets, a project initiated in the final days of the Republic and brought to fruition under Imperial rule.</p>
+                <p>Darth Vader, encased in his life-sustaining armor, became the Emperor's most feared enforcer, hunting down Jedi survivors and crushing nascent rebellions. Palpatine himself delved deeper into the arcane secrets of the Dark Side, consolidating his power and seeking to extend his unnatural life.</p>
+                <button class="gemini-button" data-gemini-type="analyze-strategy" data-context="Analyze the long-term effectiveness of ruling through fear, as exemplified by the Empire and the Death Star."><span class="sparkle">✨</span> Analyze This Strategy</button>
+                
+                <svg class="svg-diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                    <text x="200" y="25" class="diagram-title-svg">Imperial Power Structure</text>
+                    <rect x="150" y="40" width="100" height="30" rx="5" class="node-rect" style="fill:#500000; stroke:#ff6b6b;"/>
+                    <text x="200" y="60" class="node-text sith-text" style="font-weight:bold;">Emperor Palpatine</text>
+                    <line x1="200" y1="70" x2="200" y2="90" class="line-connector"/>
+                    <polygon points="197,87 203,87 200,93" class="arrow-head"/>
+                    <rect x="150" y="95" width="100" height="30" rx="5" class="node-rect" style="fill:#330000; stroke:#ff6b6b;"/>
+                    <text x="200" y="115" class="node-text sith-text">Darth Vader</text>
+                    <text x="200" y="128" class="node-text" style="font-size:9px;">(Right Hand / Enforcer)</text>
+                    <line x1="200" y1="125" x2="200" y2="145" class="line-connector"/>
+                    <line x1="50" y1="145" x2="350" y2="145" class="line-connector"/>
+                    <line x1="100" y1="145" x2="100" y2="160" class="line-connector"/>
+                    <polygon points="97,157 103,157 100,163" class="arrow-head"/>
+                    <rect x="60" y="165" width="80" height="30" rx="5" class="node-rect"/>
+                    <text x="100" y="185" class="node-text">Grand Moffs</text>
+                    <text x="100" y="198" class="node-text" style="font-size:9px;">(e.g., Tarkin)</text>
+                    <line x1="300" y1="145" x2="300" y2="160" class="line-connector"/>
+                    <polygon points="297,157 303,157 300,163" class="arrow-head"/>
+                    <rect x="260" y="165" width="80" height="30" rx="5" class="node-rect"/>
+                    <text x="300" y="185" class="node-text">Military High</text>
+                     <text x="300" y="198" class="node-text" style="font-size:9px;">Command</text>
+                     <line x1="100" y1="195" x2="100" y2="210" class="line-connector"/>
+                     <text x="100" y="225" class="node-text" style="font-size:9px;">Regional Governors</text>
+                     <line x1="300" y1="195" x2="300" y2="210" class="line-connector"/>
+                     <text x="300" y="225" class="node-text" style="font-size:9px;">Imperial Fleet/Army</text>
+                     <text x="300" y="238" class="node-text" style="font-size:9px;">Stormtroopers</text>
+                    <rect x="160" y="215" width="80" height="30" rx="5" class="node-rect" style="fill:#202030;"/>
+                    <text x="200" y="235" class="node-text">ISB</text>
+                     <line x1="200" y1="195" x2="200" y2="215" class="line-connector" style="stroke-dasharray:2 2;"/>
+                    <text x="200" y="265" class="node-text" style="font-size:10px; fill:#ffd700;">Tools of Control: Fear, Propaganda, Death Star</text>
+                </svg>
+            </section>
+
+            <section id="act4" class="act-section">
+                <h2>Act IV: A New Hope – A Spark Ignites</h2>
+                <p>The Emperor, confident in his power, dissolved the Imperial Senate. With the Death Star operational, he believed no one would dare oppose him. He underestimated the resilience of hope and the re-emergence of the Force in a new generation.</p>
+                <p>The Rebel Alliance, a scattered collection of freedom fighters, began to pose a more significant threat. The theft of the Death Star plans by Rebel spies set in motion events that would shake the Empire to its core.</p>
+                
+                <h3>The Children of Skywalker Emerge</h3>
+                <p>Luke Skywalker, a farmboy from Tatooine, was drawn into the conflict by the aging Jedi Master <span class="character-link" data-character="obi-wan">Obi-Wan Kenobi</span> (Ben Kenobi), who had watched over him from afar. Princess Leia Organa of Alderaan, a secret leader in the Rebellion, was captured by Darth Vader. Their destinies, and the fate of the galaxy, became intertwined.</p>
+                <p>The destruction of Alderaan by the Death Star was a horrific demonstration of Imperial cruelty, but it also galvanized opposition to the Empire. Ultimately, Luke Skywalker, guided by the Force and the sacrifice of Obi-Wan, fired the shot that destroyed the Death Star, handing the Rebellion its first major victory.</p>
+                <button class="gemini-button" data-gemini-type="what-if" data-context="What if Luke Skywalker had not managed to destroy the first Death Star?"><span class="sparkle">✨</span> Explore "What If?" Scenario</button>
+            </section>
+
+            <section id="act5" class="act-section">
+                <h2>Act V: The Empire Strikes Back – The Son of Skywalker</h2>
+                <p>The destruction of the Death Star sent ripples of fear through the Empire and caught the direct attention of Emperor Palpatine. He sensed Luke Skywalker's growing power in the Force.</p>
+                
+                <h3>The Emperor's New Focus</h3>
+                <p>Through holographic communication, Palpatine instructed Darth Vader: "The Force is strong with him. The son of Skywalker must not become a Jedi." His initial goal was to eliminate this new threat. However, as Luke's potential became clearer, Palpatine's strategy shifted: "He will join us or die." The Emperor envisioned turning Luke to the Dark Side, perhaps to replace Vader, or to have two powerful Skywalkers as his servants.</p>
+
+                <div class="archival-analysis">
+                    <h5>Archival Analysis: Palpatine's Sith Ideals</h5>
+                    <p>Palpatine's desire to turn Luke embodies the Sith creed: the strong should rule, and any potential rival must either be subservient or destroyed. He saw in Luke not just a threat, but an opportunity to acquire an even more powerful apprentice. The idea of a "dynasty of the Dark Side" with the Skywalkers under his control would have appealed to his immense ego and his understanding of Force potential.</p>
+                </div>
+
+                <h3>"I Am Your Father"</h3>
+                <p>Darth Vader, driven by his own complex motivations and the Emperor's orders, relentlessly pursued Luke and the Rebel Alliance. The climax came on Cloud City, Bespin, where Vader defeated Luke in a lightsaber duel and revealed the devastating truth: "No, *I* am your father." This revelation was designed to shatter Luke's spirit and make him more susceptible to the Dark Side's allure.</p>
+                <button class="gemini-button" data-gemini-type="analyze-strategy" data-context="Analyze the impact of Vader's revelation 'I am your father' on Luke Skywalker and the broader galactic conflict."><span class="sparkle">✨</span> Analyze This Revelation</button>
+            </section>
+
+            <section id="act6" class="act-section">
+                <h2>Act VI: Return of the Jedi – The Emperor's End Game</h2>
+                <p>Emperor Palpatine orchestrated what he believed would be the final destruction of the Rebel Alliance. He allowed Rebel spies to learn of a new, more powerful Death Star under construction, luring their fleet into a trap near the forest moon of Endor.</p>
+                
+                <h3>The Emperor's Throne Room</h3>
+                <p>Aboard the second Death Star, Palpatine intended to personally oversee the Rebel fleet's annihilation and, more importantly, to turn Luke Skywalker to the Dark Side. He arranged for Luke to confront Darth Vader in his presence, goading Luke with taunts and temptations, trying to force him to strike down his father in anger and thus complete his journey to the Dark Side.</p>
+                <p>Luke, however, resisted. Though he defeated Vader, he cast aside his lightsaber, declaring, "I am a Jedi, like my father before me." Enraged, Palpatine unleashed torrents of Force lightning upon Luke, intent on killing him.</p>
+                <button class="gemini-button" data-gemini-type="what-if" data-context="What if Luke Skywalker had succumbed to the Dark Side in the Emperor's throne room?"><span class="sparkle">✨</span> Explore "What If?" Scenario</button>
+
+                <h3>Vader's Redemption</h3>
+                <p>Seeing his son tortured and dying, Anakin Skywalker reawakened within Darth Vader. Unable to bear the sight, he seized the Emperor and hurled him into the Death Star's reactor core, sacrificing his own life to save Luke and destroy his Sith Master. The prophecy was fulfilled: Anakin Skywalker, the Chosen One, brought balance to the Force by destroying the Sith.</p>
+                
+                <svg class="svg-diagram" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+                    <text x="200" y="25" class="diagram-title-svg">The Skywalker Arc: Fall and Redemption</text>
+                    <path d="M 30 125 Q 100 50, 200 125 T 370 125" stroke="#4db8ff" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                    <circle cx="50" cy="100" r="15" class="node-rect" style="fill:#82cfff;"/>
+                    <text x="50" y="105" class="node-text jedi-text" style="font-size:9px;">Anakin Jedi</text>
+                    <text x="50" y="135" class="node-text" style="font-size:8px;">(Hope)</text>
+                    <circle cx="125" cy="70" r="15" class="node-rect" style="fill:#ffd700;"/>
+                    <text x="125" y="75" class="node-text" style="font-size:9px; fill:#333;">Fear/Anger</text>
+                     <text x="125" y="55" class="node-text" style="font-size:8px;">(Vulnerability)</text>
+                    <circle cx="200" cy="100" r="20" class="node-rect" style="fill:#ff6b6b;"/>
+                    <text x="200" y="105" class="node-text sith-text" style="font-size:10px;">Darth Vader</text>
+                     <text x="200" y="135" class="node-text" style="font-size:8px;">(Fall to Dark Side)</text>
+                    <circle cx="275" cy="70" r="15" class="node-rect" style="fill:#ffd700;"/>
+                    <text x="275" y="75" class="node-text" style="font-size:9px; fill:#333;">Conflict</text>
+                     <text x="275" y="55" class="node-text" style="font-size:8px;">(Luke's Emergence)</text>
+                    <circle cx="350" cy="100" r="15" class="node-rect" style="fill:#82cfff;"/>
+                    <text x="350" y="105" class="node-text jedi-text" style="font-size:9px;">Redemption</text>
+                     <text x="350" y="135" class="node-text" style="font-size:8px;">(Sacrifice)</text>
+                    <line x1="65" y1="100" x2="110" y2="75" class="line-connector"/> <polygon points="108,73 112,78 107,79" class="arrow-head"/>
+                    <line x1="140" y1="72" x2="180" y2="95" class="line-connector"/> <polygon points="178,93 182,98 177,99" class="arrow-head"/>
+                    <line x1="220" y1="95" x2="260" y2="73" class="line-connector"/> <polygon points="258,71 262,76 257,77" class="arrow-head"/>
+                    <line x1="290" y1="75" x2="335" y2="100" class="line-connector"/> <polygon points="333,98 337,103 332,104" class="arrow-head"/>
+                    <text x="200" y="180" class="node-text" style="font-size:10px; fill: #a0a0a0;">Anakin's journey: from light to darkness, and back to light through love for his son.</text>
+                    <text x="200" y="200" class="node-text" style="font-size:10px; fill: #ffd700;">Fulfillment of Prophecy: Destruction of the Sith.</text>
+                </svg>
+                <p>With the Emperor's death and the destruction of the second Death Star by the Rebel fleet (aided by the Ewoks), the Empire's backbone was broken.</p>
+            </section>
+
+            <section id="epilogue" class="act-section">
+                <h2>Epilogue: The Force Endures, A Fragile Peace</h2>
+                <p>The fall of Emperor Palpatine and the Galactic Empire marked the end of a long and bloody era. The Rebel Alliance, soon to become the New Republic, faced the monumental task of healing a fractured galaxy and rebuilding democratic institutions. The cost of Palpatine's ambition was immeasurable, a scar upon galactic history.</p>
+                <p>The Skywalker lineage, though marked by tragedy, ultimately brought about the Sith's downfall. Luke and Leia carried forward the legacy of hope. Yet, the struggle between the Light Side and the Dark Side of the Force is eternal. The galaxy had achieved a fragile peace, but the echoes of Palpatine's reign served as a stark reminder: vigilance is the price of freedom, and the allure of power can corrupt even the noblest intentions.</p>
+                
+                <div class="archival-analysis">
+                    <h5>Final Archival Note: The Mythic Cycle</h5>
+                    <p>Star Wars, at its heart, is a modern myth. It's about the cyclical nature of good versus evil, tyranny versus freedom, despair versus hope. Palpatine represents the ultimate corruption of power, a warning that resonates across any era. The Skywalker family, with all their flaws and triumphs, embodies the struggle within us all. The Force, in its mystery, binds the galaxy together, a reminder that even in the darkest times, there is always a potential for light to return.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="characterModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" id="closeCharacterModalButton">&times;</span>
+            <h4 id="modalCharacterName"></h4>
+            <p id="modalCharacterBio"></p>
+            <p><strong>Political Role/Significance:</strong> <span id="modalCharacterPolitics"></span></p>
+            <p><strong>Key Manipulations/Decisions:</strong> <span id="modalCharacterManipulations"></span></p>
+            <p><strong>Lineage Notes:</strong> <span id="modalCharacterLineage"></span></p>
+        </div>
+    </div>
+
+    <div id="geminiResponseModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" id="closeGeminiModalButton">&times;</span>
+            <h4 id="geminiModalTitle">Explorando las Profundidades de la Galaxia...</h4>
+            <div id="geminiResponseContent">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                sidebar.classList.remove('open');
+            });
+        });
+
+        // Character Modal Logic
+        const characterModal = document.getElementById('characterModal');
+        const characterLinks = document.querySelectorAll('.character-link');
+        const closeCharacterModalButton = document.getElementById('closeCharacterModalButton');
+
+        const characterData = {
+            palpatine: {
+                name: "Sheev Palpatine / Darth Sidious",
+                bio: "A native of Naboo, Palpatine was a cunning politician and a secret Dark Lord of the Sith. He orchestrated galactic events for decades to rise to power and transform the Republic into the Galactic Empire.",
+                politics: "Senator of Naboo, Supreme Chancellor of the Galactic Republic, Emperor of the Galactic Empire. Master manipulator of galactic politics.",
+                manipulations: "Engineered the Naboo Crisis, orchestrated the Clone Wars, seduced Anakin Skywalker to the Dark Side, executed Order 66, declared himself Emperor.",
+                lineage: "Master to Darth Maul, Darth Tyranus (Count Dooku), and Darth Vader (Anakin Skywalker). No known biological offspring relevant to the main saga's power dynamics."
+            },
+            plagueis: {
+                name: "Darth Plagueis the Wise",
+                bio: "A Muun Sith Lord and the master of Darth Sidious. He was obsessed with midi-chlorian manipulation and the pursuit of eternal life.",
+                politics: "Operated in the shadows, influencing galactic finance and politics. His primary political impact was through his apprentice, Palpatine.",
+                manipulations: "Trained Palpatine in the ways of the Sith and the arts of deception. His research into midi-chlorians may have indirectly influenced events around Anakin's conception.",
+                lineage: "Master to Darth Sidious (Sheev Palpatine)."
+            },
+            valorum: {
+                name: "Finis Valorum",
+                bio: "The Supreme Chancellor of the Galactic Republic preceding Palpatine. He was a well-meaning but ultimately ineffective leader, unable to overcome the Republic's corruption and bureaucracy.",
+                politics: "Supreme Chancellor. His inability to resolve the Naboo Crisis led to a Vote of No Confidence, paving the way for Palpatine's election.",
+                manipulations: "Fell victim to Palpatine's machinations and the manufactured Naboo crisis.",
+                lineage: "No significant lineage notes for the main political plot."
+            },
+            padme: {
+                name: "Padmé Amidala Naberrie",
+                bio: "Queen of Naboo, later Senator of Naboo. A courageous and principled leader, she fought for democracy and peace. Secret wife of Anakin Skywalker and mother of Luke and Leia.",
+                politics: "Advocated against the Military Creation Act. A key figure in the Loyalist Committee during the Clone Wars. Her actions, often influenced by Palpatine, had significant political consequences.",
+                manipulations: "Manipulated by Palpatine to call for the Vote of No Confidence in Valorum. Her love for Anakin was exploited by Palpatine.",
+                lineage: "Wife of Anakin Skywalker, mother of Luke Skywalker and Leia Organa."
+            },
+            "qui-gon": {
+                name: "Qui-Gon Jinn",
+                bio: "A wise but maverick Jedi Master who discovered Anakin Skywalker and believed him to be the Chosen One.",
+                politics: "Often acted according to his own interpretation of the Force rather than strict Jedi Council doctrine. His insistence on training Anakin had profound galactic consequences.",
+                manipulations: "Resisted the Trade Federation's manipulations on Naboo. His actions were driven by his belief in the Living Force.",
+                lineage: "Master to Obi-Wan Kenobi. Discovered Anakin Skywalker."
+            },
+            anakin: {
+                name: "Anakin Skywalker / Darth Vader",
+                bio: "The Chosen One, prophesied to bring balance to the Force. A powerful Jedi Knight who, driven by fear and Palpatine's manipulation, fell to the Dark Side and became Darth Vader.",
+                politics: "Hero of the Clone Wars. Later, as Darth Vader, the Emperor's chief enforcer and a symbol of Imperial power.",
+                manipulations: "Heavily manipulated by Palpatine throughout his life. His fear of loss was his greatest weakness.",
+                lineage: "Son of Shmi Skywalker. Husband of Padmé Amidala. Father of Luke Skywalker and Leia Organa. Apprentice to Obi-Wan Kenobi (as Jedi) and Darth Sidious (as Sith)."
+            },
+            dooku: {
+                name: "Count Dooku / Darth Tyranus",
+                bio: "A former Jedi Master who lost faith in the Republic and the Jedi Order. He became the public leader of the Separatist movement and Darth Sidious's Sith apprentice.",
+                politics: "Head of State for the Confederacy of Independent Systems (CIS). Played a crucial role in instigating and leading the Clone Wars as per Palpatine's plan.",
+                manipulations: "Manipulated systems and individuals to join the CIS. Was himself a pawn in Palpatine's larger game, ultimately discarded.",
+                lineage: "Former Jedi Master, apprentice to Yoda. Sith apprentice to Darth Sidious. Master to Qui-Gon Jinn (as Jedi)."
+            },
+            jango: {
+                name: "Jango Fett",
+                bio: "A renowned Mandalorian bounty hunter, chosen as the genetic template for the Grand Army of the Republic's clone troopers.",
+                politics: "His primary political impact was serving as the blueprint for the clone army, a key component of Palpatine's plan.",
+                manipulations: "Recruited by Count Dooku (under Sidious's direction).",
+                lineage: "Father (genetic template) of Boba Fett and all clone troopers."
+            },
+            luke: {
+                name: "Luke Skywalker",
+                bio: "Son of Anakin Skywalker and Padmé Amidala. A farmboy from Tatooine who became a pivotal figure in the Rebel Alliance and a powerful Jedi Knight.",
+                politics: "Commander in the Rebel Alliance. Symbol of hope against the Empire. Sought to restore the Jedi Order.",
+                manipulations: "Targeted by the Emperor and Vader for conversion to the Dark Side or destruction. Resisted these manipulations.",
+                lineage: "Son of Anakin Skywalker and Padmé Amidala. Twin brother of Leia Organa. Trained by Obi-Wan Kenobi and Yoda."
+            },
+            leia: {
+                name: "Leia Organa",
+                bio: "Daughter of Anakin Skywalker and Padmé Amidala. Princess of Alderaan and a key leader in the Rebel Alliance. Strong-willed, diplomatic, and Force-sensitive.",
+                politics: "Youngest Senator in the Imperial Senate (representing Alderaan). A founding leader of the Rebel Alliance. Later, a General in the New Republic.",
+                manipulations: "Resisted Imperial interrogation and manipulation. Her leadership was crucial to the Rebellion's success.",
+                lineage: "Daughter of Anakin Skywalker and Padmé Amidala. Twin sister of Luke Skywalker. Adopted daughter of Bail Organa and Queen Breha of Alderaan."
+            },
+             "obi-wan": {
+                name: "Obi-Wan Kenobi",
+                bio: "A legendary Jedi Master, mentor to Anakin Skywalker and later to Luke Skywalker. A key figure in the Clone Wars and a survivor of Order 66.",
+                politics: "Jedi General in the Clone Wars. Member of the Jedi High Council. His actions were guided by Jedi principles and the will of the Force.",
+                manipulations: "Recognized Palpatine's growing influence but, like the rest of the Jedi Council, failed to uncover his true nature until it was too late.",
+                lineage: "Apprentice to Qui-Gon Jinn. Master to Anakin Skywalker. Mentor to Luke Skywalker."
+            }
+        };
+
+        characterLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const characterId = link.getAttribute('data-character');
+                const data = characterData[characterId];
+                if (data) {
+                    document.getElementById('modalCharacterName').textContent = data.name;
+                    document.getElementById('modalCharacterBio').textContent = data.bio;
+                    document.getElementById('modalCharacterPolitics').textContent = data.politics;
+                    document.getElementById('modalCharacterManipulations').textContent = data.manipulations;
+                    document.getElementById('modalCharacterLineage').textContent = data.lineage;
+                    characterModal.style.display = "flex"; // Use flex for centering
+                }
+            });
+        });
+
+        if(closeCharacterModalButton) {
+            closeCharacterModalButton.addEventListener('click', () => {
+                characterModal.style.display = "none";
+            });
+        }
+        
+        // Gemini Modal Logic
+        const geminiResponseModal = document.getElementById('geminiResponseModal');
+        const closeGeminiModalButton = document.getElementById('closeGeminiModalButton');
+        const geminiButtons = document.querySelectorAll('.gemini-button');
+        const geminiModalTitle = document.getElementById('geminiModalTitle');
+        const geminiResponseContent = document.getElementById('geminiResponseContent');
+
+        geminiButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const type = button.getAttribute('data-gemini-type');
+                const context = button.getAttribute('data-context');
+                let prompt = "";
+
+                if (type === 'what-if') {
+                    geminiModalTitle.textContent = "Exploring 'What If?' Scenario...";
+                    prompt = `Imagine you are a Star Wars historian with deep knowledge of the Force and galactic politics. Explore the following 'What If?' scenario related to Star Wars: "${context}". Provide a concise, insightful, and engaging narrative of the potential alternate timeline or consequences. Keep it under 200 words.`;
+                } else if (type === 'analyze-strategy') {
+                    geminiModalTitle.textContent = "Analyzing Strategic Depth...";
+                    prompt = `As a highly intelligent Star Wars political and military strategist, provide a concise analysis of the following: "${context}". Focus on its effectiveness, implications, and potential overlooked aspects. Keep it under 200 words.`;
+                } else if (type === 'analyze-revelation') {
+                    geminiModalTitle.textContent = "Analyzing Revelation Impact...";
+                     prompt = `As a Star Wars saga expert, analyze the profound impact of the following revelation: "${context}". Discuss its effects on characters, the plot, and thematic resonance. Keep it under 200 words.`;
+                }
+
+
+                geminiResponseContent.innerHTML = '<div class="loader"></div> <p style="text-align:center;">Generating insights from the Force...</p>';
+                geminiResponseModal.style.display = "flex"; // Use flex for centering
+
+                try {
+                    // Gemini API Call
+                    let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Left empty as per instructions
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    let text = "No content generated or an error occurred.";
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        text = result.candidates[0].content.parts[0].text;
+                        // Basic Markdown-like formatting for paragraphs
+                        text = text.split('\n').map(para => `<p>${para.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')}</p>`).join('');
+                    } else if (result.promptFeedback && result.promptFeedback.blockReason) {
+                        text = `<p>Content generation blocked. Reason: ${result.promptFeedback.blockReason}</p>`;
+                         if (result.promptFeedback.blockReason === "SAFETY" && result.promptFeedback.safetyRatings) {
+                            text += `<p>Details: ${result.promptFeedback.safetyRatings.map(r => `${r.category}: ${r.probability}`).join(', ')}</p>`;
+                        }
+                    }
+                     geminiResponseContent.innerHTML = text;
+
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    geminiResponseContent.innerHTML = `<p style="color: #ff6b6b;">Error generating response: ${error.message}. Please check the console for details.</p>`;
+                }
+            });
+        });
+
+        if(closeGeminiModalButton) {
+            closeGeminiModalButton.addEventListener('click', () => {
+                geminiResponseModal.style.display = "none";
+            });
+        }
+
+        // Close modals if user clicks outside of them
+        window.addEventListener('click', (event) => {
+            if (event.target == characterModal) {
+                characterModal.style.display = "none";
+            }
+            if (event.target == geminiResponseModal) {
+                geminiResponseModal.style.display = "none";
+            }
+        });
+
+    </script>
+</body>
+</html>
